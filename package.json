@@ -1,0 +1,20 @@
+{
+  "name": "swap-net",
+  "version": "1.0.0",
+  "description": "This is a blockchain network where peoples swap between diffirent currencies and get instant widrawal, it support deposit with both crypto and other currencies like naira USD etc and it has less fee in swapping and operations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SadiqDev-stack/swap-net.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SadiqDev-stack/swap-net/issues"
+  },
+  "homepage": "https://github.com/SadiqDev-stack/swap-net#readme"
+}
