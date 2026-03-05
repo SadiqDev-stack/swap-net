@@ -1,3 +1,13 @@
 user register and validate email
 
 we create him static va or checkout for the payment using 
+
+Client ID	IKIAB23A4E2756605C1ABC33CE3C287E27267F660D61
+Secret	secret
+Pay Item Id	9405967
+Merchant Code	MX6072
+Card Payment API Credentials	
+Client ID	IKIA3B827951EA3EC2E193C51DA1D22988F055FD27DE
+Secret	ajkdpGiF6PHVrwK
+Merchant code	MX21696
+PayItemId	4177785
