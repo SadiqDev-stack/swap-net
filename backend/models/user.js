@@ -100,11 +100,30 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now()
   },
-  balance: {
+ balace: {
+  USD: {
     type: Number,
+    required: true,
+    min: 0,
     default: 0
   },
-  
+  NGN: {
+    type: Number,
+    required: true,
+    min: 0,
+    default: 0
+  },
+  // Dynamic currencies (BTC, ETH, USDT, etc)
+  others: {
+    type: Map,
+    of: {
+      type: Number,
+      min: 0,
+      default: 0
+    },
+    default: {}
+  }
+},
   createdAt: {
     type: Date,
     default: Date.now()
@@ -136,7 +155,8 @@ const UserSchema = new Schema({
     required: true
   },
   kycDetails: {
-    type: Object
+    type: Object,
+    required: true
   },
   lastFunding: {
     type: Date,
@@ -155,7 +175,7 @@ const UserSchema = new Schema({
   storage: {
     phoneNumbers: [String],
     default: {
-      phoneNumbers: []
+      wallets: []
     }
   },
   totalSpent: totalSpentSchema,
@@ -169,4 +189,4 @@ UserSchema.index({ createdAt: 1 });
 UserSchema.index({ "otpExpires": 1 }, { expireAfterSeconds: 0 });
 */
 
-export default model("vtu_user", UserSchema);
+export default model("swapnet_user", UserSchema)

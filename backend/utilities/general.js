@@ -13,7 +13,7 @@ const ObjectId = mongoose.Types.ObjectId;
 import {Redis} from "@upstash/redis";
 import {AppError} from "../middlewares/logger.js"
 import rateLimit from "express-rate-limit";
-import requireConfig from "../middlewares/config.js";
+// import requireConfig from "../middlewares/config.js";
 
 const { ENV_TYPE = "development", UPSTASH_REDIS_REST_URL, APP_ID, APP_NAME, UPSTASH_REDIS_REST_TOKEN, HASH_KEY, HASH_ROUNDS, SENDER_MAIL, MAIL_APP_KEY, TOKEN_EXPIRE_TIME } =
     process.env;
@@ -37,7 +37,7 @@ const compareHashes = crypto.compareSync;
 const randomHash = HASH_ROUNDS => crypto.genSalt(parseInt(HASH_ROUNDS));
 
 const composeMail = async (req, receiver, subject, body, other = {}) => {
-    if(!req.config) req.config = await requireConfig()
+    //if(!req.config) req.config = await requireConfig()
     
     const options = {
         subject,
@@ -230,7 +230,7 @@ const checkCache = async (key, notFoundCb) => {
 const specialChars = "{}|$[]<>()!?;:*\'\"&`/\\";
 
 function sanitizeInput(input) {
-    if (typeof input !== "string") throw new AppError("invalid input data")
+    if (!input || typeof input !== "string") throw new AppError("invalid input data")
     let sanitizedInput = "";
     for (const char of input) {
         if (!specialChars.includes(char)) sanitizedInput += char

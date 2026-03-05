@@ -6,7 +6,7 @@ import User from "../models/user.js";
 import {Configuration} from "../models/configuration.js";
 const { APP_ID } = process.env;
 import {dbHandler} from "./dbhandler.js";
-import requireConfig from "./config.js";
+// import requireConfig from "./config.js";
 
 
 export default async (req, res, next) => {

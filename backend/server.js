@@ -12,13 +12,13 @@ import { logger, log } from "./middlewares/logger.js";
 import { getCache, setCache, cacheMem, useLimiter} from "./utilities/general.js";
 import path from "path";
 import userRouter from "./routers/user.js";
-import notificationRouter from "./routers/notification.js";
-import servicesRouter from "./routers/services.js";
+// import notificationRouter from "./routers/notification.js";
+// import servicesRouter from "./routers/services.js";
 import transactionRouter from "./routers/transaction.js";
 import paymentRouter from "./routers/payment.js";
-import configRouter from "./routers/configuration.js";
-import adminRouter from "./routers/admin.js";
-import assistantRouter from "./routers/assistant.js";
+// import configRouter from "./routers/configuration.js";
+// import adminRouter from "./routers/admin.js";
+// import assistantRouter from "./routers/assistant.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import {createLog, logError} from "./utilities/vtu.js";
@@ -75,18 +75,18 @@ app.use(express.static(path.join(__dirname, "../frontend"), { dotfiles: "allow" 
 
 // routers 
 app.use("/api/user", dbHandler, userRouter);
-app.use("/api/notification", dbHandler, notificationRouter);
-app.use("/api/services", dbHandler, servicesRouter);
+// app.use("/api/notification", dbHandler, notificationRouter);
+// app.use("/api/services", dbHandler, servicesRouter);
 app.use("/api/payment", dbHandler, paymentRouter)
-app.use("/api/assistant", dbHandler, assistantRouter)
+// app.use("/api/assistant", dbHandler, assistantRouter)
 // for transaction and receipt 
 app.get("/transaction/receipt/:reference", (req, res) => {
   const {reference} = req.params;
   res.sendFile(path.join(__dirname, "../frontend/services/transaction-receipt.html"));
 })
 app.use("/api/transaction", dbHandler, transactionRouter);
-app.use("/api/config", dbHandler, configRouter);
-app.use("/api/admin", dbHandler, adminRouter)
+// app.use("/api/config", dbHandler, configRouter);
+// app.use("/api/admin", dbHandler, adminRouter)
 /*
 app.use("/api/configuration", configurationRouter);
 app.use("/api/transaction", transactionRouter)

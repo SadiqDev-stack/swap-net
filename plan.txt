@@ -1,0 +1,3 @@
+user register and validate email
+
+we create him static va or checkout for the payment using 

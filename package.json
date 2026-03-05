@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "This is a blockchain network where peoples swap between diffirent currencies and get instant widrawal, it support deposit with both crypto and other currencies like naira USD etc and it has less fee in swapping and operations",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node --env-file=./backend/.env --watch ./backend/server.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,21 @@
   "bugs": {
     "url": "https://github.com/SadiqDev-stack/swap-net/issues"
   },
-  "homepage": "https://github.com/SadiqDev-stack/swap-net#readme"
+  "homepage": "https://github.com/SadiqDev-stack/swap-net#readme",
+  "dependencies": {
+    "@upstash/redis": "^1.36.3",
+    "axios": "^1.13.6",
+    "bcryptjs": "^3.0.3",
+    "colors": "^1.4.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "expresss": "^0.0.0",
+    "jsonwebtoken": "^9.0.3",
+    "lz-string": "^1.5.0",
+    "mongoose": "^9.2.4",
+    "multer": "^2.1.1",
+    "nodemailer": "^8.0.1"
+  }
 }

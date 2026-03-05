@@ -7,10 +7,10 @@ import {log} from "../middlewares/logger.js";
 import authenticate from "../middlewares/authentication.js";
 import authorize from "../middlewares/authorization.js";
 import {sendMail, templates} from "../services/mail.js";
-import VtuServices from "../services/vtu.js";
+// import VtuServices from "../services/vtu.js";
 const {APP_NAME, ADMIN_EMAIL, LOGIN_EXPIRE} = process.env;
-import {updateStat, updateTransactionStatus, deductUserBalance, createPackageTransaction} from "../utilities/vtu.js"
-import requireConfig from "../middlewares/config.js";
+// import {updateStat, updateTransactionStatus, deductUserBalance, createPackageTransaction} from "../utilities/vtu.js"
+// import requireConfig from "../middlewares/config.js";
 
 const app = Router();
 
@@ -18,14 +18,14 @@ const app = Router();
 app.post("/register", async (req, res, next) => {
  try{
    for(const field in req.body){
-     if(field !== "password" && req.body[field]) req.body[field] = sanitizeInput(req.body[field])
+     if(field !== "password" && field.toLocaleLowerCase() !== "kycdetails" && req.body[field]) req.body[field] = sanitizeInput(req.body[field])
    }
 
 
    let {name, email, address, password, phone, gender = "male", country = "nigeria"} = req.body;
    
    
-   
+   if(!req.body || !name || !email || !phone || !gender) throw new req.AppError("invalid or empty details")
    
    if(name.length >= 100) return res.json({
      success: false,
@@ -72,7 +72,7 @@ app.post("/register", async (req, res, next) => {
           log(user.name + " registered an account")
      })
      
-     return await updateStat("success", 1, "registration")
+    // return await updateStat("success", 1, "registration")
  }catch(er){
    req.err = er;
    next()
@@ -107,7 +107,7 @@ app.get("/verify",  async (req, res) => {
      }, {new: true});
  
      
-     await setCache(`users:${_id}`, user);
+    // await setCache(`users:${_id}`, user);
      const destination = encodeURI(`${req.domain}/message?title=email verification succesful&description= congratulations ${user.name}, you successfully verified your email address, now your ${APP_NAME} account is ready, please wait a bit while we redirect you to your dashboard &redirect=${user.role == "user" ? "/user" : "/admin"}/dashboard.html`)
      res.redirect(destination) // make it template for message
    
@@ -147,7 +147,7 @@ app.get("/verify",  async (req, res) => {
         }, {new: true});
  
        
-       await setCache(`users:${_id}`, user)
+      // await setCache(`users:${_id}`, user)
        const destination = encodeURI(`${url}/message?title=password change succesfull&description= congratulations ${user.name}, you successfully changed your password, please wait a bit while we redirect you to your dashboard &redirect=${user.role == "user" ? "/user" : "/admin"}/dashboard.html`)
        res.redirect(destination) // make it template for message
      }
@@ -499,7 +499,7 @@ app.put("/package/upgrade/:newPackageName", authorize, async (req, res, next) =>
       data: transaction
     })
     
-    await updateStat("success", "purchase", transaction.meta)
+    //await updateStat("success", "purchase", transaction.meta)
   }catch(er){
     req.err = er;
     next()

@@ -8,7 +8,7 @@ export default async (req, res, next) => {
         req.message = req.err.message
       } else {
         req.message = "something went wrong internally try again, if issues persist please report!";
-        await logError("INTERNAL_SERVER_ERROR", req.err, req.body)
+       // await logError("INTERNAL_SERVER_ERROR", req.err, req.body)
       }
     }
     

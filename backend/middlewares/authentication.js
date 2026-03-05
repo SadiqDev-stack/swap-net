@@ -3,7 +3,7 @@ import { checkCache, setCache, getCache, setCookie, compareHashes, createToken }
 import { log } from "../middlewares/logger.js";
 import {dbHandler} from "./dbhandler.js"
 import {sendMail} from "../services/mail.js"
-import requireConfig from "./config.js";
+// import requireConfig from "./config.js";
 
 const { MAX_LOGIN_FAIL_ATTEMPT = 5, LOGIN_TERMINATION_MINUTE = 1 , LOGIN_EXPIRE = 1000 * 60 * 60} = process.env;
 

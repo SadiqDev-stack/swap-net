@@ -1,7 +1,7 @@
 import colors from "colors";
 import errorHandler from "./error.js";
 const {APP_ID} = process.env;
-import VtuServices from "../services/vtu.js"
+// import VtuServices from "../services/vtu.js"
 import {
   dbHandler
 } from "../middlewares/dbhandler.js"
