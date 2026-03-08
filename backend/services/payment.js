@@ -236,10 +236,17 @@ const getPaymentGatewayBalance = async (req) => {
   }
 }
 
+const convertCurrency = async (from, to, amnount) => {
+  // add api
+  return Math.random(500)
+}
+
+
 export {
   createVirtualAccountWithFlutterWave,
   createVirtualAccountWithBillStack,
   createPaymentlink,
   confirmTransaction,
-  getPaymentGatewayBalance
+  getPaymentGatewayBalance,
+  convertCurrency
 };

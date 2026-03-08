@@ -138,6 +138,9 @@ const UserSchema = new Schema({
     type: [{
       accountNumber: String,
       accountName: String,
+      walletAddress: String,
+      currency: String,
+      key: String,
       bankName: String,
     }],
     default: []

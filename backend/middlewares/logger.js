@@ -41,6 +41,7 @@ const allowedDomains = ["sadiqsharpsub.com.ng", "sadiqsharpsub.vercel.app"]
 const logger = async (req, res, next) => {
   try{
   const { method, url } = req;
+  console.log(req.body)
   req.body = req.body || {};
   const host = req.get('host');
   req.domain = `${req.protocol}://${req.get("host")}`
@@ -60,17 +61,17 @@ const logger = async (req, res, next) => {
   }
    
    
-   if(req.requestType == "api"){
-           const domainMatch = allowedDomains.find(dm => req.domain.includes(dm));
-           const match = apiAccessibleRoutes.find(route => {
-               return req.path.includes(route);
-            });
+  //  if(req.requestType == "api"){
+  //          const domainMatch = allowedDomains.find(dm => req.domain.includes(dm));
+  //          const match = apiAccessibleRoutes.find(route => {
+  //              return req.path.includes(route);
+  //           });
             
-            if(req.path.includes("api") || req.method !== "GET"){
-              if(!match && !domainMatch) throw new req.AppError("this route is not accessible through api")
-              return next()
-            }
-    }
+  //           if(req.path.includes("api") || req.method !== "GET"){
+  //             if(!match && !domainMatch) throw new req.AppError("this route is not accessible through api")
+  //             return next()
+  //           }
+  //   }
   
   return next()
   }catch(er){

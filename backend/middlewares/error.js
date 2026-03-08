@@ -5,7 +5,8 @@ export default async (req, res, next) => {
   if (req.path.includes("/api/")) {
     if (req.err && !req.message) {
       if (req.err instanceof req.AppError) {
-        req.message = req.err.message
+        req.message = req.err.message;
+        console.log(req.err.message)
       } else {
         req.message = "something went wrong internally try again, if issues persist please report!";
        // await logError("INTERNAL_SERVER_ERROR", req.err, req.body)

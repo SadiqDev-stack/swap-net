@@ -13,6 +13,7 @@ export default async (req, res, next) => {
     
     if(typeof email !== "string" || !email.includes("@")) throw new req.AppError('invalid cresidentials!!')
     const user = await User.findOne({ email });
+  
     
     if (!user) {
       log("User with this email doesn't exist", "bad");

@@ -8,7 +8,29 @@
 </head>
 
 <body>
-  
+    <script src="https://newwebpay.qa.interswitchng.com/inline-checkout.js"></script>
 </body>
+
+<script>
+  //declare callback function
+function paymentCallback(response) {
+    console.log(response);
+}
+
+//sample payment request
+var samplePaymentRequest = {
+    merchant_code: "MX007",          
+    pay_item_id: "101007",
+    txn_ref: "0999mijjnmknj",
+    site_redirect_url: "https://google.com/",
+    amount: 10000, 
+    currency: 566, // ISO 4217 numeric code of the currency used
+    onComplete: paymentCallback,
+    mode: 'TEST'
+};
+
+//call webpayCheckout to initiate the payment
+onclick = () => window.webpayCheckout(samplePaymentRequest);
+</script>
 
 </html>

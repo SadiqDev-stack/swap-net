@@ -10,10 +10,14 @@ const TransactionSchema = new mongoose.Schema(
       index: true,
     },
 
+    type: {
+      type: String,
+      enums: ['swapping', 'transfer', 'widrawal', 'funding', 'refund', 'reward']
+    },
+
     walletAction: {
       type: String,
-      enum: ["funding", "debit", "credit", "refund"],
-      default: "debit"
+      enum: ["funding", "debit", "credit", "refund"]
     },
 
   
@@ -55,7 +59,7 @@ const TransactionSchema = new mongoose.Schema(
    
     meta: {
       type: mongoose.Schema.Types.Mixed,
-      default: { profit: 0},
+      default: { profit: 0 },
       // other data about transaction
     },
     
@@ -69,6 +73,10 @@ const TransactionSchema = new mongoose.Schema(
       type: Date,
       default: Date.now()
       // when was it updated last
+    },
+
+    description: {
+      type: String
     }
   },
   {
