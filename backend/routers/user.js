@@ -6,15 +6,15 @@ import {hash, compareHashes, setCookie, getCache, setCache, checkCache, getToken
 import {log} from "../middlewares/logger.js";
 import authenticate from "../middlewares/authentication.js";
 import authorize from "../middlewares/authorization.js";
-import {sendMail, templates} from "../services/mail.js";
+import {sendMail, templates} from "../services/mail.js"; 
+import { generateChildWallet } from "../services/Web3.js";
+
 // import VtuServices from "../services/vtu.js";
 const {APP_NAME, ADMIN_EMAIL, LOGIN_EXPIRE} = process.env;
-// import {updateStat, updateTransactionStatus, deductUserBalance, createPackageTransaction} from "../utilities/vtu.js"
-// import requireConfig from "../middlewares/config.js";
-
 const app = Router();
 
-// for account registration in Sadiq Sharp Sub
+
+
 app.post("/register", async (req, res, next) => {
  try{
    for(const field in req.body){
@@ -55,7 +55,9 @@ app.post("/register", async (req, res, next) => {
      req.body.role = email == ADMIN_EMAIL ? "super" : "user";
      const user = await User.create({...req.body, password: hashedPassword})
      if(!user) throw new req.AppError("fail to create account, check your details")
-     await setCache(`users:${user._id}`, user);
+     const Web3Info = await generateChildWallet(user._id);
+
+     console.log(Web3Info.address);
      
      const token = await createToken({_id: user._id.toString(), email: user.email});
      req.token = token;
@@ -72,6 +74,8 @@ app.post("/register", async (req, res, next) => {
           log(user.name + " registered an account")
      })
      
+
+
     // return await updateStat("success", 1, "registration")
  }catch(er){
    req.err = er;
@@ -91,9 +95,8 @@ app.get("/verify",  async (req, res) => {
     
     try{
      const {email = "", _id = "", newPassword = ""} = await getTokenData(token);
-     let user = await checkCache(`users:${_id}`, async () => {
-       return [await User.findOne({ _id })]
-     })
+     let user = await User.findOne({ _id });
+
      if(!user) throw new req.AppError ("user not found");
      
      
@@ -288,7 +291,7 @@ app.put("/apikey/refresh", authorize, async (req, res) => {
     }, {new: true});
  
     
-    if(user) await setCache(`users:${user._id}`, user)
+
     
     res.json({
       success: true,

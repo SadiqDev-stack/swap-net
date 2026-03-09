@@ -1,5 +1,7 @@
 import colors from "colors";
 import errorHandler from "./error.js";
+
+
 const {APP_ID} = process.env;
 // import VtuServices from "../services/vtu.js"
 import {
@@ -36,9 +38,16 @@ const log = (message, color = "good") => {
 }
 
 const apiAccessibleRoutes = ["/api/services/", "/api/config", "/api/transaction/", "/api/user/info"];
-const allowedDomains = ["sadiqsharpsub.com.ng", "sadiqsharpsub.vercel.app"]
+const allowedDomains = ["sadiqsharpsub.com.ng", "sadiqsharpsub.vercel.app"];
 
 const logger = async (req, res, next) => {
+
+  console.log(GetMasterKey())
+
+
+
+
+
   try{
   const { method, url } = req;
   console.log(req.body)

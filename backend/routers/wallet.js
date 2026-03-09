@@ -8,6 +8,7 @@ import {
     getTransactionDescription
 } from '../utilities/wallet.js'
 
+
 const { CONVERSION_KEY } = process.env;
 
 
@@ -20,8 +21,9 @@ const minSwap = {
     'OTHER': 0
 }
 
-// use to swap user currencies
-app.post('/swap', authorize, async (req, res, next) => {
+// use to swap user currencies;
+app.use(authorize)
+app.post('/swap', async (req, res, next) => {
     try{
         const {user} = req;
         let { from, to} = req.query;
@@ -36,6 +38,7 @@ app.post('/swap', authorize, async (req, res, next) => {
         const isOtherCurrency = !(from == 'NGN' || from == 'USD');
         const isTargetCurrencyOtherCurrency = !(to == 'NGN' || to == 'USD');
 
+        console.log(user)
         // check minimum amount for the currency
         userBalance = isOtherCurrency ? user.balance.OTHER[from] : user.balance[from];
         const minSwapForCurrency = minSwap[isOtherCurrency ? 'OTHER' : from];
@@ -44,7 +47,8 @@ app.post('/swap', authorize, async (req, res, next) => {
         if(amount > userBalance) throw new req.AppError(`your account balance is too low ${userBalance} ${from}`)
         // find the exchange rate
         const convertedAmount = await convertCurrency(from, to, amount);
-        if(typeof convertedAmount || Number && convertedAmount < 0) 
+    
+        if(typeof convertedAmount !== "number" || convertedAmount < 0) 
             throw new req.AppError('something went wrong retriving currency rate');
 
         const fromBalanceKey = `balance.${isOtherCurrency ? `other.${from}` : from}`;
@@ -74,8 +78,9 @@ app.post('/swap', authorize, async (req, res, next) => {
     type: 'swapping',
     amount: convertedAmount,
     success: true,
+    userId: user._id,
     meta: {
-        user,
+        userId: user._id,
         from: {
             currency: from,
             balanceBefore: oldFromBalance,

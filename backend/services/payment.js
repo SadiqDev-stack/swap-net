@@ -236,9 +236,9 @@ const getPaymentGatewayBalance = async (req) => {
   }
 }
 
-const convertCurrency = async (from, to, amnount) => {
+const convertCurrency = async (from, to, amount) => {
   // add api
-  return Math.random(500)
+  return random(0, amount)
 }
 
 

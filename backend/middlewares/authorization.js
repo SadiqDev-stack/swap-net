@@ -6,7 +6,7 @@ import User from "../models/user.js";
 import {Configuration} from "../models/configuration.js";
 const { APP_ID } = process.env;
 import {dbHandler} from "./dbhandler.js";
-// import requireConfig from "./config.js";
+import requireConfig from "./config.js";
 
 
 export default async (req, res, next) => {
@@ -35,13 +35,11 @@ export default async (req, res, next) => {
          }
          
          userQuery = { _id: userData._id};
-         user = await checkCache(`users:${APP_ID}:${userQuery._id}`, async () => {
-             return [await User.findOne(userQuery).lean()]
-         })
+         user = await User.findOne(userQuery).lean();
+
         }else{
          userQuery = { apiKey: apikey };
          user = await User.findOne(userQuery).lean();
-         if(user) await setCache(`users:${user._id}`, user)
         }
         
         

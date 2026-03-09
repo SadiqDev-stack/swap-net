@@ -143,7 +143,7 @@ const upload = multer({
 
 process.__dirname = __dirname;
 
-const generateKey = () => "sadiqsharp_" + new ObjectId().toString()
+const generateKey = () => "swapnet_" + new ObjectId().toString();
 
 const setCookie = (res, key = 'key', value = 'value', expiresInMs = 1000 * 60 * 60) => {
     const options = {

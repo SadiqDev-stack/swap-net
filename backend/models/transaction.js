@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 const {APP_NAME = "sadiq_sharp_sub"} = process.env;
+import { generateKey } from "../utilities/general.js";
 
 const TransactionSchema = new mongoose.Schema(
   {
@@ -38,14 +39,14 @@ const TransactionSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      default: `${APP_NAME}_${Date.now()}`,
+      default: () => generateKey(),
       index: true, // our reference
     },
 
     status: {
       type: String,
-      enum: ["processing", "success", "failed", "reversed"],
-      default: "processing",
+      enum: ["processing", "successful", "failed", "reversed"],
+      default: "successful",
       index: true,
       // status of operation
     },

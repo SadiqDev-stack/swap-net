@@ -3,15 +3,13 @@ import { checkCache, setCache, getCache, setCookie, compareHashes, createToken }
 import { log } from "../middlewares/logger.js";
 import {dbHandler} from "./dbhandler.js"
 import {sendMail} from "../services/mail.js"
-// import requireConfig from "./config.js";
+import requireConfig from "./config.js";
 
 const { MAX_LOGIN_FAIL_ATTEMPT = 5, LOGIN_TERMINATION_MINUTE = 1 , LOGIN_EXPIRE = 1000 * 60 * 60} = process.env;
 
 export default async (req, res, next) => {
   try {
     const { email, password, keepMe = false} = req.body;
-    
-    if(typeof email !== "string" || !email.includes("@")) throw new req.AppError('invalid cresidentials!!')
     const user = await User.findOne({ email });
   
     
@@ -92,7 +90,7 @@ export default async (req, res, next) => {
     user.lastFailedLogin = 0;
     user.lastLogin = now;
     await user.save();
-    await setCache(`users:${user._id}`, user)
+
     
     
     

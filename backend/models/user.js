@@ -1,16 +1,12 @@
 import { Schema, model } from "mongoose";
 const {BASIC_API_LIMIT = 1000, BASIC_EMAIL_LIMIT = 200, MAX_LOGIN_FAIL_ATTEMPT = 5} = process.env
 import {generateKey} from "../utilities/general.js"
-import { defaultPackages, profitMargins} from "./configuration.js"
+
 
 let totalSpentSchema = {
   type: Object,
   default: {total: 0, packages: 0}
 };
-
-for(const service in profitMargins){
-  totalSpentSchema.default[service] = 0;
-}
 
 
 const UserSchema = new Schema({
@@ -71,7 +67,7 @@ const UserSchema = new Schema({
   },
   "package": {
     type: String,
-    default: defaultPackages[0].name
+    default: "basic"
   },
   webhook: {
     type: String,
@@ -100,7 +96,7 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now()
   },
- balace: {
+ balance: {
   USD: {
     type: Number,
     required: true,
